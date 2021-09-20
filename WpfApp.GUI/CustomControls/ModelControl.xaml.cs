@@ -10,8 +10,14 @@ namespace WpfApp.GUI.CustomControls
 {
     public partial class ModelControl : UserControl
     {
+        public static readonly DependencyProperty ModelNameProperty = DependencyProperty.Register("ModelName", typeof(string), typeof(ModelControl), new PropertyMetadata(OnModelNamePropertyChanged));
         public static readonly DependencyProperty PropertyListProperty = DependencyProperty.Register("PropertyList", typeof(BindableCollection<PropertyModel>), typeof(ModelControl), new PropertyMetadata(OnPropertyChanged));
         public static readonly DependencyProperty FunctionListProperty = DependencyProperty.Register("FunctionList", typeof(BindableCollection<FunctionModel>), typeof(ModelControl), new PropertyMetadata(OnPropertyChanged));
+        public string ModelName
+        {
+            get { return (string)GetValue(ModelNameProperty); }
+            set { SetValue(ModelNameProperty, value); }
+        }
         public BindableCollection<PropertyModel> PropertyList
         {
             get { return (BindableCollection<PropertyModel>)GetValue(PropertyListProperty); }
@@ -22,13 +28,9 @@ namespace WpfApp.GUI.CustomControls
             get { return (BindableCollection<FunctionModel>)GetValue(FunctionListProperty); }
             set { SetValue(FunctionListProperty, value); }
         }
-        public BindableCollection<string> PropertiesDataTypesList { get; set; }
-        public BindableCollection<string> FunctionDataTypesList { get; set; }
 
         public ModelControl()
         {
-            PropertiesDataTypesList = new BindableCollection<string>(PropertyTypes.Types);
-            FunctionDataTypesList = new BindableCollection<string>(FunctionTypes.Types);
             InitializeComponent();
         }
 
@@ -40,7 +42,8 @@ namespace WpfApp.GUI.CustomControls
                 NextPropID = PropertyList.Select(x => x.ID).Max() + 1;
             }
             
-            PropertyList.Add(new PropertyModel() { 
+            PropertyList.Add(new PropertyModel()
+            {
                 ID = NextPropID,
                 PropertyName = "Property Name..",
                 PropertyType = "string"
@@ -64,14 +67,22 @@ namespace WpfApp.GUI.CustomControls
         private void RemoveProperty(object sender, RoutedEventArgs e)
         {
             int id = (int)((Button)sender).Tag;
-            PropertyModel removedProp = PropertyList.Where(x => x.ID == id).SingleOrDefault();
+            PropertyModel removedProp = PropertyList.SingleOrDefault(x => x.ID == id);
             PropertyList.Remove(removedProp);
         }
         private void RemoveFunction(object sender, RoutedEventArgs e)
         {
             int id = (int)((Button)sender).Tag;
-            FunctionModel removedFunc = FunctionList.Where(x => x.ID == id).SingleOrDefault();
+            FunctionModel removedFunc = FunctionList.SingleOrDefault(x => x.ID == id);
             FunctionList.Remove(removedFunc);
+        }
+        private static void OnModelNamePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if(e.OldValue is not null)
+            {
+                PropertyTypes.RemoveDataTypes(e.OldValue.ToString());
+            }
+            PropertyTypes.AddDataTypes(e.NewValue.ToString());
         }
         private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

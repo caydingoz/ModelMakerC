@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
 namespace WpfApp.Infrastructure
 {
     public static class PropertyTypes
     {
-        public static List<string> Types { get; private set; }
+        public static ObservableCollection<string> Types { get; private set; }
 
         public static void InitializeDataTypes()
         {
@@ -24,6 +24,10 @@ namespace WpfApp.Infrastructure
         public static void AddDataTypes(string dataType)
         {
             Types.Add(dataType);
+        }
+        public static void RemoveDataTypes(string dataType)
+        {
+            Types.Remove(dataType);
         }
     }
 }

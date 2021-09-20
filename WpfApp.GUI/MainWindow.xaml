@@ -11,15 +11,8 @@
         Title="MainWindow" Height="450" Width="800">
 	<Window.Resources>
 		<Style TargetType="uc:ModelControl">
-			<Setter Property="Margin" Value="10,10,20,20"/>
-		</Style>
-		<Style TargetType="TextBox">
-			<Setter Property="Margin" Value="5,5,0,5"/>
-			<Setter Property="Padding" Value="3,2,0,0"/>
-			<Setter Property="FontFamily" Value="Comic Sans MS"/>
-			<Setter Property="FontSize" Value="12"/>
-			<Setter Property="Width" Value="200"/>
-			<Setter Property="Height" Value="25"/>
+			<Setter Property="Margin" Value="10,0,0,20"/>
+			<Setter Property="Width" Value="265"/>
 		</Style>
 	</Window.Resources>
 	<Grid>
@@ -46,16 +39,13 @@
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Border Margin="10" Padding="5" BorderBrush="SteelBlue" BorderThickness="3,5,3,5" CornerRadius="3">
-							<StackPanel Width="300">
-								<DockPanel>
-									<TextBox Text="{Binding ModelName, UpdateSourceTrigger = PropertyChanged}"/>
-									<Button Tag="{Binding ID}" Click="RemoveModel" Width="20" Height="20" Background="red" HorizontalAlignment="Right" Cursor="Hand">
-										<materialDesign:PackIcon Kind="Close" Height="10" Width="10" />
-									</Button>
-								</DockPanel>
-								<uc:ModelControl PropertyList = "{Binding ModelProperties }" FunctionList = "{Binding ModelFunctions }" />
-							</StackPanel>
+						<Border Margin="10" Padding="0,5,0,0" BorderBrush="SteelBlue" BorderThickness="3,5,3,5" CornerRadius="3">
+							<WrapPanel Width="300">
+								<uc:ModelControl ModelName = "{Binding ModelName}" PropertyList = "{Binding ModelProperties }" FunctionList = "{Binding ModelFunctions }" />
+								<Button Tag="{Binding ID}" Click="RemoveModel" Width="20" Height="20" Background="red" HorizontalAlignment="Right" Cursor="Hand" VerticalAlignment="Top">
+									<materialDesign:PackIcon Kind="Close" Height="10" Width="10" />
+								</Button>
+							</WrapPanel>
 						</Border>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>

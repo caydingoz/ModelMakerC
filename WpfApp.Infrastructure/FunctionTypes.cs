@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
 namespace WpfApp.Infrastructure
 {
     public static class FunctionTypes
     {
-        public static List<string> Types { get; private set; }
+        public static ObservableCollection<string> Types { get; private set; }
 
         public static void InitializeFunctionTypes()
         {
@@ -12,10 +12,6 @@ namespace WpfApp.Infrastructure
             Types = PropertyTypes.Types;
             Types.Add("void");
             Types.Add("Task");
-        }
-        public static void AddFunctionTypes(string functionType)
-        {
-            Types.Add(functionType);
         }
     }
 }

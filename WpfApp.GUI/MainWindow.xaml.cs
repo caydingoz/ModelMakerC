@@ -21,6 +21,7 @@ namespace WpfApp.GUI
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         private BindableCollection<ModelItem> _modelList { get; set; }
         public BindableCollection<ModelItem> ModelList
         {

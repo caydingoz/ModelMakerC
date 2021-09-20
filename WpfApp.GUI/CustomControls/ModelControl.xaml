@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp.GUI.CustomControls" 
+             xmlns:c="clr-namespace:WpfApp.Infrastructure;assembly=WpfApp.Infrastructure" 
 			 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 			 mc:Ignorable="d" 
              d:DesignWidth="280"
@@ -35,69 +36,77 @@
 		</Style>
 	</UserControl.Resources>
 	<Grid>
-		<StackPanel DataContext="{Binding ElementName=Root}">
-			<StackPanel>
-				<Label FontWeight="Bold">Properties</Label>
+		<StackPanel>
+			
+			<TextBox Text="{Binding ModelName, UpdateSourceTrigger = PropertyChanged}" 
+					 Width="200" 
+					 HorizontalAlignment="Left"
+					 Margin="0, 5, 0, 10" />
+			
+			<StackPanel DataContext="{Binding ElementName=Root}">
+				<StackPanel>
+				
+					<Label FontWeight="Bold">Properties</Label>
 
-				<ItemsControl ItemsSource="{Binding PropertyList}">
-					<ItemsControl.ItemsPanel>
-						<ItemsPanelTemplate>
-							<StackPanel />
-						</ItemsPanelTemplate>
-					</ItemsControl.ItemsPanel>
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-							<DockPanel Margin="5,0,0,5">
-								<Button Tag="{Binding ID}" Click="RemoveProperty" Background="OrangeRed">
-									<materialDesign:PackIcon Kind="Minus" Height="7.5" Width="7.5" />
-								</Button>
-								<ComboBox IsEditable="True" 
-										  ItemsSource="{Binding Path=DataContext.PropertiesDataTypesList, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-										  SelectedItem="{Binding PropertyType, UpdateSourceTrigger = PropertyChanged}"
-										  />
-								<TextBox Text="{Binding PropertyName, UpdateSourceTrigger = PropertyChanged}"/>
-							</DockPanel>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
+					<ItemsControl ItemsSource="{Binding PropertyList}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel />
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<DockPanel Margin="5,0,0,5">
+									<Button Tag="{Binding ID}" Click="RemoveProperty" Background="OrangeRed">
+										<materialDesign:PackIcon Kind="Minus" Height="7.5" Width="7.5" />
+									</Button>
+									<ComboBox IsEditable="True" 
+											  ItemsSource="{Binding Source={x:Static c:PropertyTypes.Types}}"
+											  Text="{Binding PropertyType, UpdateSourceTrigger = PropertyChanged}"/>
+									<TextBox Text="{Binding PropertyName, UpdateSourceTrigger = PropertyChanged}"/>
+								</DockPanel>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
 
-				<Button Click="AddNewProperty" Background="LightGreen">
-					<materialDesign:PackIcon Kind="Plus" Height="7.5" Width="7.5" />
-				</Button>
+					<Button Click="AddNewProperty" Background="LightGreen">
+						<materialDesign:PackIcon Kind="Plus" Height="7.5" Width="7.5" />
+					</Button>
+				</StackPanel>
+
+				<Separator Margin="0,5,0,0" />
+
+				<StackPanel >
+					<Label FontWeight="Bold">Functions</Label>
+
+					<ItemsControl ItemsSource="{Binding FunctionList}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel />
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<DockPanel Margin="5,0,0,5">
+									<Button Tag="{Binding ID}" Click="RemoveFunction" Background="OrangeRed">
+										<materialDesign:PackIcon Kind="Minus" Height="7.5" Width="7.5" />
+									</Button>
+									<ComboBox IsEditable="True" 
+											  ItemsSource="{Binding Source={x:Static c:FunctionTypes.Types}}"
+											  Text="{Binding FunctionType, UpdateSourceTrigger = PropertyChanged}"
+											  />
+									<TextBox Text="{Binding FunctionName, UpdateSourceTrigger = PropertyChanged}"/>
+								</DockPanel>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+
+					<Button Click="AddNewFunction" Background="LightGreen">
+						<materialDesign:PackIcon Kind="Plus" Height="7.5" Width="7.5" />
+					</Button>
+				</StackPanel>
+
 			</StackPanel>
-
-			<Separator Margin="0,5,0,0" />
-
-			<StackPanel>
-				<Label FontWeight="Bold">Functions</Label>
-
-				<ItemsControl ItemsSource="{Binding FunctionList}">
-					<ItemsControl.ItemsPanel>
-						<ItemsPanelTemplate>
-							<StackPanel />
-						</ItemsPanelTemplate>
-					</ItemsControl.ItemsPanel>
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-							<DockPanel Margin="5,0,0,5">
-								<Button Tag="{Binding ID}" Click="RemoveFunction" Background="OrangeRed">
-									<materialDesign:PackIcon Kind="Minus" Height="7.5" Width="7.5" />
-								</Button>
-								<ComboBox IsEditable="True" 
-										  ItemsSource="{Binding Path=DataContext.FunctionDataTypesList, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-										  SelectedItem="{Binding FunctionType}"
-										  />
-								<TextBox Text="{Binding FunctionName}"/>
-							</DockPanel>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
-
-				<Button Click="AddNewFunction" Background="LightGreen">
-					<materialDesign:PackIcon Kind="Plus" Height="7.5" Width="7.5" />
-				</Button>
-			</StackPanel>
-
 		</StackPanel>
 	</Grid>
 </UserControl>
