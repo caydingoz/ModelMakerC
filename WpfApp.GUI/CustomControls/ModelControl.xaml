@@ -27,6 +27,7 @@
 		</Style>
 		<Style TargetType="Label">
 			<Setter Property="FontFamily" Value="Comic Sans MS"/>
+			<Setter Property="Margin" Value="5,0,0,0"/>
 		</Style>
 		<Style TargetType="Button">
 			<Setter Property="Margin" Value="5,0,0,5"/>
@@ -37,7 +38,8 @@
 	</UserControl.Resources>
 	<Grid>
 		<StackPanel>
-			
+			<Label Padding="0" Margin="0" FontWeight="Bold">Model Name</Label>
+
 			<TextBox Text="{Binding ModelName, UpdateSourceTrigger = PropertyChanged}" 
 					 Width="200" 
 					 HorizontalAlignment="Left"
@@ -57,8 +59,13 @@
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
 								<DockPanel Margin="5,0,0,5">
-									<Button Tag="{Binding ID}" Click="RemoveProperty" Background="OrangeRed">
-										<materialDesign:PackIcon Kind="Minus" Height="7.5" Width="7.5" />
+									<Button Tag="{Binding ID}" Click="RemoveProperty" Background="#FF616D">
+										<Button.Resources>
+											<Style TargetType="Border">
+												<Setter Property="CornerRadius" Value="7.5"/>
+											</Style>
+										</Button.Resources>
+										<materialDesign:PackIcon Kind="Minus" Height="10" Width="10" />
 									</Button>
 									<ComboBox IsEditable="True" 
 											  ItemsSource="{Binding Source={x:Static c:PropertyTypes.Types}}"
@@ -69,8 +76,13 @@
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>
 
-					<Button Click="AddNewProperty" Background="LightGreen">
-						<materialDesign:PackIcon Kind="Plus" Height="7.5" Width="7.5" />
+					<Button Click="AddNewProperty" Background="#66DE93">
+						<Button.Resources>
+							<Style TargetType="Border">
+								<Setter Property="CornerRadius" Value="8"/>
+							</Style>
+						</Button.Resources>
+						<materialDesign:PackIcon Kind="Plus" Height="10" Width="10" />
 					</Button>
 				</StackPanel>
 
@@ -88,8 +100,13 @@
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
 								<DockPanel Margin="5,0,0,5">
-									<Button Tag="{Binding ID}" Click="RemoveFunction" Background="OrangeRed">
-										<materialDesign:PackIcon Kind="Minus" Height="7.5" Width="7.5" />
+									<Button Tag="{Binding ID}" Click="RemoveFunction" Background="#FF616D">
+										<Button.Resources>
+											<Style TargetType="Border">
+												<Setter Property="CornerRadius" Value="7.5"/>
+											</Style>
+										</Button.Resources>
+										<materialDesign:PackIcon Kind="Minus" Height="10" Width="10" />
 									</Button>
 									<ComboBox IsEditable="True" 
 											  ItemsSource="{Binding Source={x:Static c:FunctionTypes.Types}}"
@@ -101,8 +118,13 @@
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>
 
-					<Button Click="AddNewFunction" Background="LightGreen">
-						<materialDesign:PackIcon Kind="Plus" Height="7.5" Width="7.5" />
+					<Button Click="AddNewFunction" Background="#66DE93">
+						<Button.Resources>
+							<Style TargetType="Border">
+								<Setter Property="CornerRadius" Value="8"/>
+							</Style>
+						</Button.Resources>
+						<materialDesign:PackIcon Kind="Plus" Height="10" Width="10"/>
 					</Button>
 				</StackPanel>
 
